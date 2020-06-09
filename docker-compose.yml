@@ -1,0 +1,10 @@
+version: "3"
+
+services:
+  uvdesk:
+    image: dietermartens/uvdesk
+    ports:
+      - 80:80
+    environment:
+      - APP_ENV=PROD
+      - APP_SECRET=${SECRET}
