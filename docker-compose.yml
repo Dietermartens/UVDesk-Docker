@@ -11,4 +11,4 @@ services:
       - TZ=Europe/Brussels
       - CRON_USER=root
       - CRON_SCHEDULE=*/5 * * * *
-      - CRON_COMMAND=cd /var/www/html && php bin/console uvdesk:refresh-mailbox info@onestopmedicalshop.be
+      - CRON_COMMAND=cd /var/www/html && php bin/console uvdesk:refresh-mailbox info@domain.tld
