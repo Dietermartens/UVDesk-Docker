@@ -8,3 +8,7 @@ services:
     environment:
       - APP_ENV=PROD
       - APP_SECRET=${SECRET}
+      - TZ=Europe/Brussels
+      - CRON_USER=root
+      - CRON_SCHEDULE=*/5 * * * *
+      - CRON_COMMAND=cd /var/www/html && php bin/console uvdesk:refresh-mailbox info@onestopmedicalshop.be
