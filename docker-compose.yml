@@ -1,16 +1,38 @@
 version: "3"
 
+networks:
+  public:
+    external:
+      name: proxy
+
+volumes:
+  app:
+
 services:
   uvdesk:
     image: dietermartens/uvdesk
-    ports:
-      - 80:80
-    volumes:
-      - ./uvdesk:/var/www/html:rw
     environment:
-      - APP_ENV=PROD
-      - APP_SECRET=${SECRET}
+      # installation in dev, change it after installation to prod
+      - APP_ENV=dev
+      - APP_SECRET=
       - TZ=Europe/Brussels
-      - CRON_USER=root
-      - CRON_SCHEDULE=*/5 * * * *
-      - CRON_COMMAND=cd /var/www/html && php bin/console uvdesk:refresh-mailbox info@domain.tld
+      - APP_TIMEZONE=Europe/Brussels
+      - APP_CURRENCY=EUR
+      - CRON_USER1=root
+      - CRON_SCHEDULE1=*/5 * * * *
+      - CRON_COMMAND1=cd /var/www/html && php bin/console uvdesk:refresh-mailbox info@domain.tld support@domain.tld
+    # if using traefik proxy
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=proxy
+      - traefik.http.routers.uvdesk.rule=Host(`{uvdesk.domain.tld}`)
+      - traefik.http.services.uvdesk.loadbalancer.server.port=80
+      - traefik.http.routers.uvdesk.tls.certresolver=le
+      - traefik.http.routers.uvdesk.tls=true
+    restart: always
+    extra_hosts:
+      - "{uvdesk.domain.tld}:127.0.0.1"
+    networks:
+      - public
+    volumes:
+      - app:/var/www/html
