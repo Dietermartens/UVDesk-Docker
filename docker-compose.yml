@@ -5,6 +5,8 @@ services:
     image: dietermartens/uvdesk
     ports:
       - 80:80
+    volumes:
+      - ./uvdesk:/var/www/html:rw
     environment:
       - APP_ENV=PROD
       - APP_SECRET=${SECRET}
