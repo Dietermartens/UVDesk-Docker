@@ -84,3 +84,7 @@ services:
 ### Mailbox does not create tickets from email sync
 
 Check the config/packages/uvdesk.yaml site_url if its not setup corectly, change it to the correct url without 'https://' or 'http://'.
+
+### Build
+
+- docker buildx build --platform linux/amd64 -t dietermartens/uvdesk --push .
