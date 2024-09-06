@@ -19,7 +19,7 @@ services:
     image: dietermartens/uvdesk
     environment:
       # installation in dev, change it after installation to prod
-      - APP_ENV=dev
+      - APP_ENV=production
       - APP_SECRET=
       - TZ=Europe/Brussels
       - APP_TIMEZONE=Europe/Brussels
